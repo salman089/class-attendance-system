@@ -5,13 +5,16 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center shrink-0">
-                    <x-sub-application-logo href="/" class="block w-auto h-10 text-gray-800 fill-current" />
+                    <x-sub-application-logo href="/" class="block w-auto h-12 text-gray-800 fill-current" />
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 text-white sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('classroom.index')" :active="request()->routeIs('classroom.*')">
+                        {{ __('Classrooms') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -21,7 +24,7 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button
-                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out bg-[#161615] border border-transparent rounded-md hover:text-gray-300 focus:outline-none">
+                            class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-white transition duration-150 ease-in-out bg-[#161615] rounded-md hover:text-gray-300 focus:outline-none">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">
