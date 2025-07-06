@@ -4,3 +4,13 @@
 @tailwind components;
 @tailwind utilities;
 
+.custom-date-input::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* This turns the icon white */
+    opacity: 1;
+    cursor: pointer;
+}
+
+.custom-date-input {
+    color-scheme: dark; /* Ensures proper styling for inputs on dark mode */
+}
+

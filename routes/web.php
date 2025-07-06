@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ClassroomController;
 
@@ -16,17 +17,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
-Route::middleware('auth')->group(function () {
+    // Classroom
     Route::prefix('/classroom')->group(function () {
-    Route::get('/', [ClassroomController::class, 'index'])->name('classroom.index');
-    Route::get('/create', [ClassroomController::class, 'create'])->name('classroom.create');
-    Route::get('/{classroom}/edit', [ClassroomController::class, 'edit'])->name('classroom.edit');
-    Route::get('/{classroom}/show', [ClassroomController::class, 'show'])->name('classroom.show');
-    Route::delete('/{classroom}', [ClassroomController::class, 'destroy'])->name('classroom.destroy');
+        Route::get('/', [ClassroomController::class, 'index'])->name('classroom.index');
+        Route::get('/create', [ClassroomController::class, 'create'])->name('classroom.create');
+        Route::get('/{classroom}/edit', [ClassroomController::class, 'edit'])->name('classroom.edit');
+        Route::get('/{classroom}/show', [ClassroomController::class, 'show'])->name('classroom.show');
+        Route::delete('/{classroom}', [ClassroomController::class, 'destroy'])->name('classroom.destroy');
+    });
+
+    // User
+    Route::prefix('/user')->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('user.index');
+        Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::get('/{user}/show', [UserController::class, 'show'])->name('user.show');
     });
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

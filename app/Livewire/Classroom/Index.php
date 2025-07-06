@@ -24,7 +24,7 @@ class Index extends Component
     {
         $this->columns = [
             'ID',
-            'Name',
+            'Class Name',
             'Section',
             'Actions',
         ];
