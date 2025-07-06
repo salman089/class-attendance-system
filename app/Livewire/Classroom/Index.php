@@ -30,11 +30,6 @@ class Index extends Component
         ];
     }
 
-    public function delete(Classroom $classroom)
-    {
-        $classroom->delete();
-    }
-
     public function render()
     {
         return view('livewire.classroom.index', [

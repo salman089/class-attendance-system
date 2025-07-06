@@ -23,6 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [ClassroomController::class, 'index'])->name('classroom.index');
     Route::get('/create', [ClassroomController::class, 'create'])->name('classroom.create');
     Route::get('/{classroom}/edit', [ClassroomController::class, 'edit'])->name('classroom.edit');
+    Route::get('/{classroom}/show', [ClassroomController::class, 'show'])->name('classroom.show');
+    Route::delete('/{classroom}', [ClassroomController::class, 'destroy'])->name('classroom.destroy');
     });
 });
 

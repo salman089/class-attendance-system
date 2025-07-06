@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -35,10 +35,10 @@
                     <p class="mt-4 text-sm text-[#706f6c] dark:text-[#A1A09A]">
                         A simple and secure way to manage attendance for your classes.
                         <br>
-                        Made by <span class="text-[#1b1b18] dark:text-[#EDEDEC]">Salman Kazi</span> with
-                        <span class="text-[#1b1b18] dark:text-[#ff2a2a]">Laravel</span>,
-                        <span class="text-[#1b1b18] dark:text-[#ff44d7]">Livewire</span> and
-                        <span class="text-[#1b1b18] dark:text-[#2aa3b3]">Tailwind CSS.</span>
+                        Made by <span class="text-[#EDEDEC]">Salman Kazi</span> with
+                        <span class="text-[#ff2a2a]">Laravel</span>,
+                        <span class="text-[#ff44d7]">Livewire</span> and
+                        <span class="text-[#2aa3b3]">Tailwind CSS.</span>
                     </p>
                      @if (Route::has('login'))
                         <nav class="flex gap-2 mt-8">

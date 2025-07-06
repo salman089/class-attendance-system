@@ -34,6 +34,7 @@ class CreateEdit extends Component
         $this->classroom->section = $this->section;
         $this->classroom->save();
 
+        session()->flash('success', 'Classroom successfully saved!');
         return redirect()->route('classroom.index');
     }
 

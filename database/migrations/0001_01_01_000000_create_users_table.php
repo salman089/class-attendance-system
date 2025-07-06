@@ -16,6 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->text('address');
+            $table->string('phone');
+            $table->date('date_of_birth');
             $table->boolean('is_active')->default(false);
             $table->boolean('is_superuser')->default(false);
             $table->rememberToken();

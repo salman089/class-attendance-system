@@ -23,4 +23,18 @@ class ClassroomController extends Controller
             'classroom' => $classroom
         ]);
     }
+
+    public function show(Classroom $classroom)
+    {
+        return view('classrooms.show', [
+            'classroom' => $classroom
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $classroom = Classroom::findOrFail($id);
+        $classroom->delete();
+        return redirect()->route('classroom.index')->with('alert', 'Classroom successfully deleted!');
+    }
 }
