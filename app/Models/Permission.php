@@ -15,11 +15,11 @@ class Permission extends Model
 
     public function category()
     {
-        return $this->belongsTo(PermissionCategory::class);
+        return $this->belongsTo(PermissionCategory::class, 'category_id');
     }
 
     public function roles()
     {
-        return $this->belongsToMany(Role::class);
+        return $this->belongsToMany(Role::class, 'role_permissions');
     }
 }

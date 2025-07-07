@@ -47,6 +47,26 @@
                                     <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->date_of_birth }}</td>
                                 </tr>
                                 <tr class="border-b border-[#2f2f2f]">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929]">Gender</th>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->gender }}</td>
+                                </tr>
+                                <tr class="border-b border-[#2f2f2f]">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929]">Active</th>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">
+                                        <span class="{{ $user->is_active ? 'text-green-400' : 'text-red-400' }}">
+                                            {{ $user->is_active ? 'Yes' : 'No' }}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr class="border-b border-[#2f2f2f]">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929]">Role</th>
+                                    @forelse ($user->roles as $role)
+                                        <td class="px-6 py-4 hover:bg-[#444242]">{{ $role->name }}</td>
+                                    @empty
+                                        <td class="px-6 py-4 text-red-400 hover:bg-[#444242]">No roles assigned</td>
+                                    @endforelse
+                                </tr>
+                                <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Created At</th>
                                     <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->created_at }}</td>
                                 </tr>
