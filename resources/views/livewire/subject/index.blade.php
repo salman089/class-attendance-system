@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4 mt-2 mb-2 sm:flex-row sm:items-center sm:justify-between">
         {{-- Title --}}
         <div class="flex items-center space-x-2">
-            <h3 class="text-lg font-semibold text-white">Manage Classrooms</h3>
+            <h3 class="text-lg font-semibold text-white">Manage Subjects</h3>
         </div>
 
         {{-- Actions --}}
@@ -10,15 +10,15 @@
 
             {{-- Search --}}
             @include('partials.search', [
-                'label' => 'Search by classrooms name or section...',
+                'label' => 'Search by subject, teacher name, classroom name or section...',
             ])
 
             {{-- Filter  --}}
             @include('partials.pagination')
 
             {{-- Create Button --}}
-            @can('create_classrooms')
-                <x-create-button href="{{ route('classroom.create') }}">
+            @can('create_subjects')
+                <x-create-button href="{{ route('subject.create') }}">
                     <div class="flex items-center space-x-2">
                         <i class="fa-solid fa-plus"></i>
                         <span>Create</span>
@@ -47,41 +47,49 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($classrooms as $classroom)
+                            @forelse ($subjects as $subject)
                                 <tr
                                     class="border-b border-[#363634] odd:bg-[#2c2c2c] even:bg-[#1f1f1f] hover:bg-gray-700">
-                                    <td class="px-6 py-4">{{ $classroom->id }}</td>
-                                    <td class="px-6 py-4">{{ $classroom->name }}</td>
-                                    <td class="px-6 py-4">{{ $classroom->section }}</td>
+                                    <td class="px-6 py-4">{{ $subject->id }}</td>
+                                    <td class="px-6 py-4">{{ $subject->name }}</td>
+                                    <td class="px-6 py-4">
+                                        @if ($subject->classroom)
+                                            {{ $subject->classroom->name }} ({{ $subject->classroom->section }})
+                                        @else
+                                            Not assigned
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if ($subject->teacher)
+                                            {{ $subject->teacher->name }}
+                                        @else
+                                            Not assigned
+                                        @endif
+                                    </td>
                                     <td class="px-6 py-4 space-x-2 whitespace-nowrap">
 
                                         {{-- Edit --}}
-                                        @can('edit_classrooms')
-                                            <a href="{{ route('classroom.edit', $classroom->id) }}"
+                                        @can('edit_subjects')
+                                            <a href="{{ route('subject.edit', $subject->id) }}"
                                                 class="font-medium text-green-400 hover:underline">
                                                 Edit
                                             </a>
                                         @endcan
 
                                         {{-- Show --}}
-                                        @can('view_classrooms')
-                                            <a href="{{ route('classroom.show', $classroom->id) }}"
+                                        @can('view_subjects')
+                                            <a href="{{ route('subject.show', $subject->id) }}"
                                                 class="font-medium text-blue-400 hover:underline">
                                                 Show
                                             </a>
                                         @endcan
 
                                         {{-- Delete --}}
-                                        @can('delete_classrooms')
-                                            <form action="{{ route('classroom.destroy', $classroom->id) }}" method="POST"
-                                                class="inline"
-                                                onsubmit="return confirm('Are you sure you want to delete this classroom?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="font-medium text-red-400 hover:underline">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                        @can('delete_subjects')
+                                            <button type="button" wire:click="delete({{ $subject->id }})"
+                                                class="font-medium text-red-400 hover:underline">
+                                                Delete
+                                            </button>
                                         @endcan
                                     </td>
                                 </tr>
@@ -98,6 +106,6 @@
                 </div>
             </div>
         </div>
-        {{ $classrooms->links() }}
+        {{ $subjects->links() }}
     </div>
 </div>

@@ -2,7 +2,6 @@
     <div class="flex flex-col gap-4 mt-2 mb-2 sm:flex-row sm:items-center sm:justify-between">
         {{-- Title --}}
         <div class="flex items-center space-x-2">
-            <i class="text-white fa-solid fa-user-secret"></i>
             <h3 class="text-lg font-semibold text-white">Manage Roles</h3>
         </div>
 
@@ -18,7 +17,7 @@
             @include('partials.pagination')
 
             {{-- Create Button --}}
-             <x-create-button href="{{ route('user.role.create') }}">
+            <x-create-button href="{{ route('user.role.create') }}">
                 <div class="flex items-center space-x-2">
                     <i class="fa-solid fa-plus"></i>
                     <span>Create</span>
@@ -56,8 +55,8 @@
                                     class="border-b border-[#363634] odd:bg-[#2c2c2c] even:bg-[#1f1f1f] hover:bg-gray-700">
                                     <td class="px-6 py-4">{{ $role->id }}</td>
                                     <td class="px-6 py-4">{{ $role->name }}</td>
-                                    <td class="px-6 py-4">{{ $role->created_at }}</td>
-                                    <td class="px-6 py-4">{{ $role->updated_at }}</td>
+                                    <td class="px-6 py-4">{{ $role->created_at->format('M d, Y h:i A') }}</td>
+                                    <td class="px-6 py-4">{{ $role->updated_at->format('M d, Y h:i A') }}</td>
                                     <td class="px-6 py-4 space-x-2 whitespace-nowrap">
 
                                         {{-- Edit --}}

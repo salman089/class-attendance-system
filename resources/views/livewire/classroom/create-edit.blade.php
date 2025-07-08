@@ -4,7 +4,9 @@
         <div class="space-y-12">
             <div class="pb-6 border-b border-gray-700">
                 <h2 class="text-base font-semibold leading-7 text-white">Classroom Information</h2>
-                <p class="mt-1 text-sm leading-6 text-gray-400">Add or update classroom information</p>
+                <p class="mt-1 text-sm text-gray-400">
+                    {{ $classroom->exists ? 'Update the classroom\'s details.' : 'Fill in the classroom\'s details.' }}
+                </p>
             </div>
         </div>
 

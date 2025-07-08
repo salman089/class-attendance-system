@@ -9,23 +9,30 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 text-white sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden text-white sm:flex sm:space-x-6 ms-10">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        <i class="mr-1 fas fa-tachometer-alt"></i> {{ __('Dashboard') }}
                     </x-nav-link>
+
                     @can('list_users')
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
-                            {{ __('Users') }}
+                            <i class="mr-1 fas fa-users"></i> {{ __('Users') }}
                         </x-nav-link>
                     @endcan
 
                     @can('list_classrooms')
-                    <x-nav-link :href="route('classroom.index')" :active="request()->routeIs('classroom.*')">
-                        {{ __('Classrooms') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('classroom.index')" :active="request()->routeIs('classroom.*')">
+                            <i class="mr-1 fas fa-chalkboard"></i> {{ __('Classrooms') }}
+                        </x-nav-link>
                     @endcan
 
+                    @can('list_subjects')
+                        <x-nav-link :href="route('subject.index')" :active="request()->routeIs('subject.*')">
+                            <i class="mr-1 fas fa-book"></i> {{ __('Subjects') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -95,12 +102,24 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
-                {{ __('Users') }}
-            </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('classroom.index')" :active="request()->routeIs('classroom.*')">
-                {{ __('Classroom') }}
-            </x-responsive-nav-link>
+            @can('list_users')
+                <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
+                    {{ __('Users') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('list_classrooms')
+                <x-responsive-nav-link :href="route('classroom.index')" :active="request()->routeIs('classroom.*')">
+                    {{ __('Classroom') }}
+                </x-responsive-nav-link>
+            @endcan
+
+            @can('list_subjects')
+                <x-responsive-nav-link :href="route('subject.index')" :active="request()->routeIs('subject.*')">
+                    {{ __('Subjects') }}
+                </x-responsive-nav-link>
+            @endcan
+
         </div>
 
         <!-- Responsive Settings Options -->

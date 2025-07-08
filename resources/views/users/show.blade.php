@@ -84,11 +84,11 @@
                                 </tr>
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Created At</th>
-                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->created_at }}</td>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->created_at->format('M d, Y h:i A') }}</td>
                                 </tr>
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Updated At</th>
-                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->updated_at }}</td>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->updated_at->format('M d, Y h:i A') }}</td>
                                 </tr>
                             </tbody>
                         </table>

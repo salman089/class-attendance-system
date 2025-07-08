@@ -72,6 +72,11 @@ class User extends Authenticatable
         return $this->belongsToMany(Student::class);
     }
 
+    public function subjectsTaught()
+    {
+        return $this->hasMany(Subject::class, 'teacher_id');
+    }
+
     public function hasAccess(string $permissionName)
     {
         if ($this->is_superuser) {
@@ -85,5 +90,12 @@ class User extends Authenticatable
         }
 
         return false;
+    }
+
+    public function scopeWithRole($query, $roleNames)
+    {
+        return $query->whereHas('roles', function ($q) use ($roleNames) {
+            $q->whereIn('name', (array) $roleNames);
+        });
     }
 }

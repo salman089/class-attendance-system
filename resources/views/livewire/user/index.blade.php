@@ -2,7 +2,6 @@
     <div class="flex flex-col gap-4 mt-2 mb-2 sm:flex-row sm:items-center sm:justify-between">
         {{-- Title --}}
         <div class="flex items-center space-x-2">
-            <i class="text-white fa-solid fa-users"></i>
             <h3 class="text-lg font-semibold text-white">Manage Users</h3>
         </div>
 

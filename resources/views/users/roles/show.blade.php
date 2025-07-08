@@ -36,17 +36,20 @@
 
                                 <!-- Permissions -->
                                 <tr class="border-b border-[#2f2f2f] align-top">
-                                    <th class="px-6 py-4 font-medium text-white bg-[#292929]">Permissions</th>
-                                    <td class="px-6 py-4h hover:bg-[#444242]">
-                                        <ul class="space-y-2">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/4">Permissions</th>
+                                    <td class="px-0">
+                                        <ul class="w-full divide-y divide-[#2f2f2f]">
                                             @forelse ($role->permissions as $permission)
-                                                <li class="p-3 rounded-lg hover:bg-[#353333]">
-                                                    <div class="font-semibold text-gray-300">{{ $permission->title }}</div>
-                                                    <div class="text-sm text-gray-400">{{ $permission->description }}
+                                                <li class="group hover:bg-[#444242] transition-all duration-150">
+                                                    <div class="px-6 py-3">
+                                                        <div class="font-semibold text-gray-300">{{ $permission->title }}
+                                                        </div>
+                                                        <div class="text-sm text-gray-400">
+                                                            {{ $permission->description }}</div>
                                                     </div>
                                                 </li>
                                             @empty
-                                                <li class="text-gray-500">No permissions assigned.</li>
+                                                <li class="px-6 py-3 text-gray-500">No permissions assigned.</li>
                                             @endforelse
                                         </ul>
                                     </td>
@@ -55,13 +58,13 @@
                                 <!-- Created At -->
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Created At</th>
-                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $role->created_at }}</td>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $role->created_at->format('M d, Y h:i A') }}</td>
                                 </tr>
 
                                 <!-- Updated At -->
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Updated At</th>
-                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $role->updated_at }}</td>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $role->updated_at->format('M d, Y h:i A') }}</td>
                                 </tr>
                             </tbody>
                         </table>
