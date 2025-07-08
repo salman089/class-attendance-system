@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Livewire\User;
+namespace App\Livewire\User\Role;
 
 use App\Models\Role;
-use App\Models\User;
 use Livewire\Component;
 use App\Livewire\Traits\Search;
 use Livewire\Attributes\Locked;
@@ -26,26 +25,24 @@ class Index extends Component
         $this->columns = [
             'ID',
             'Name',
-            'Email',
-            'Phone',
+            'Created At',
+            'Updated At',
             'Actions',
         ];
     }
 
-    public function delete(User $user)
+    public function delete(Role $role)
     {
-        $user->delete();
-        return redirect()->route('user.index')->with('alert', 'User successfully deleted!');
+        $role->delete();
+        session()->flash('alert', 'Role successfully deleted!');
     }
 
     public function render()
     {
-        return view('livewire.user.index', [
-            'users' => User::query()
+        return view('livewire.user.role.index', [
+            'roles' => Role::query()
                 ->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('email', 'like', '%' . $this->search . '%')
                 ->paginate($this->perPage),
-            'roles' => Role::all()
         ]);
     }
 }

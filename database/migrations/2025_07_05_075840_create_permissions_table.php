@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('permissions', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name');
             $table->string('title');
-            $table->foreignId('category_id')->nullable()->constrained('permission_categories')->nullOnDelete();
             $table->string('description')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained('permission_categories')->nullOnDelete();
             $table->timestamps();
         });
     }
