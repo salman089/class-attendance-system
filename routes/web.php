@@ -30,10 +30,10 @@ Route::middleware('auth')->group(function () {
 
     // User
     Route::prefix('/user')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('user.index');
-        Route::get('/create', [UserController::class, 'create'])->name('user.create');
-        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-        Route::get('/{user}/show', [UserController::class, 'show'])->name('user.show');
+        Route::get('/', [UserController::class, 'index'])->name('user.index')->middleware('can:list_users');
+        Route::get('/create', [UserController::class, 'create'])->name('user.create')->middleware('can:create_users');
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('user.edit')->middleware('can:edit_users');
+        Route::get('/{user}/show', [UserController::class, 'show'])->name('user.show')->middleware('can:view_users');
 
         Route::prefix('/roles')->group(function () {
             Route::get('/', [RoleController::class, 'index'])->name('user.role.index');

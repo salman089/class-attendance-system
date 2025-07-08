@@ -13,12 +13,17 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
-                        {{ __('Users') }}
-                    </x-nav-link>
+                    @can('list_users')
+                        <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
+                            {{ __('Users') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('list_classrooms')
                     <x-nav-link :href="route('classroom.index')" :active="request()->routeIs('classroom.*')">
                         {{ __('Classrooms') }}
                     </x-nav-link>
+                    @endcan
 
                 </div>
             </div>

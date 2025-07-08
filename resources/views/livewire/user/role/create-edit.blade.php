@@ -4,7 +4,9 @@
         <div class="pb-4 mb-6">
             <div class="pb-6 border-b border-gray-700">
                 <h2 class="text-base font-semibold text-white">Role Information</h2>
-                <p class="mt-1 text-sm text-gray-400">Fill in the role's details.</p>
+                <p class="mt-1 text-sm text-gray-400">
+                    {{ $role->exists ? 'Update the role\'s details.' : 'Fill in the role\'s details.' }}
+                </p>
             </div>
 
             <!-- Form Fields -->

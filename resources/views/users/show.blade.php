@@ -36,7 +36,23 @@
                                 </tr>
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">Adress</th>
-                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->address }}</td>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->address_line_1 }}, {{ $user->address_line_2 }}</td>
+                                </tr>
+                                <tr class="border-b border-[#2f2f2f]">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">City</th>
+                                    <td class="px-6 py-4 hover:bg-[#444242]"> {{ $user->city }}</td>
+                                </tr>
+                                <tr class="border-b border-[#2f2f2f]">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">State</th>
+                                    <td class="px-6 py-4 hover:bg-[#444242]"> {{ $user->state }}</td>
+                                </tr>
+                                <tr class="border-b border-[#2f2f2f]">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">Postal Code</th>
+                                    <td class="px-6 py-4 hover:bg-[#444242]"> {{ $user->postcode }}</td>
+                                </tr>
+                                <tr class="border-b border-[#2f2f2f]">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">Country</th>
+                                    <td class="px-6 py-4 hover:bg-[#444242]"> {{ $user->country }}</td>
                                 </tr>
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">Phone Number</th>
@@ -48,7 +64,7 @@
                                 </tr>
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Gender</th>
-                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ $user->gender }}</td>
+                                    <td class="px-6 py-4 hover:bg-[#444242]">{{ ucfirst($user->gender) }}</td>
                                 </tr>
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Active</th>

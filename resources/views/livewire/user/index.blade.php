@@ -18,19 +18,25 @@
             @include('partials.pagination')
 
             {{-- Create Button --}}
-            <x-create-button href="{{ route('user.create') }}">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-user-plus"></i>
-                    <span>Create</span>
-                </div>
-            </x-create-button>
+            @can('create_users')
+                @if ($roles->isNotEmpty())
+                    <x-create-button href="{{ route('user.create') }}">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <span>Create</span>
+                        </div>
+                    </x-create-button>
+                @endif
+            @endcan
 
             {{-- Roles --}}
-            <a href="{{ route('user.role.index') }}"
-                class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-green-600 rounded-md hover:bg-green-500 focus:bg-green-700 active:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
-                <i class="mr-2 fa-solid fa-user-secret"></i>
-                Roles
-            </a>
+            @if (auth()->user()->is_superuser)
+                <a href="{{ route('user.role.index') }}"
+                    class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-green-600 rounded-md hover:bg-green-500 focus:bg-green-700 active:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    <i class="mr-2 fa-solid fa-user-secret"></i>
+                    Roles
+                </a>
+            @endif
         </div>
     </div>
 
@@ -63,24 +69,33 @@
                                     <td class="px-6 py-4 space-x-2 whitespace-nowrap">
 
                                         {{-- Edit --}}
-                                        <a href="{{ route('user.edit', $user->id) }}"
-                                            class="font-medium text-green-400 hover:underline">
-                                            Edit
-                                        </a>
+                                        @can('edit_users')
+                                            <a href="{{ route('user.edit', $user->id) }}"
+                                                class="font-medium text-green-400 hover:underline">
+                                                Edit
+                                            </a>
+                                        @endcan
 
                                         {{-- Show --}}
-                                        <a href="{{ route('user.show', $user->id) }}"
-                                            class="font-medium text-blue-400 hover:underline">
-                                            Show
-                                        </a>
+                                        @can('view_users')
+                                            <a href="{{ route('user.show', $user->id) }}"
+                                                class="font-medium text-blue-400 hover:underline">
+                                                Show
+                                            </a>
+                                        @endcan
 
                                         {{-- Delete --}}
-                                        @if ($user->id !== auth()->user()->id)
-                                            <button wire:click="delete({{ $user->id }})"
-                                                wire:loading.attr="disabled"
-                                                onclick="return confirm('Are you sure you want to delete this user?') || event.stopImmediatePropagation()"
-                                                class="font-medium text-red-400 hover:underline">Delete</button>
-                                        @endif
+                                        @can('delete_users')
+                                            @if (!$user->is_superuser && $user->id !== auth()->id())
+                                                <button wire:click="delete({{ $user->id }})"
+                                                    wire:loading.attr="disabled"
+                                                    onclick="if (!confirm('Are you sure you want to delete this user?')) event.stopImmediatePropagation();"
+                                                    class="font-medium text-red-400 hover:underline">
+                                                    Delete
+                                                </button>
+                                            @endif
+                                        @endcan
+
                                     </td>
                                 </tr>
                             @empty

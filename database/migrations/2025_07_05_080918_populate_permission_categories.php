@@ -14,17 +14,17 @@ return new class extends Migration
     {
         DB::table('permission_categories')->insert([
             [
-                'name' => 'Head of Department',
+                'name' => 'Users',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Teacher',
+                'name' => 'Classrooms',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Class Representative',
+                'name' => 'Subjects',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

@@ -11,25 +11,27 @@ use Illuminate\Support\Facades\Hash;
 class CreateEdit extends Component
 {
     public $user;
-    public $name;
-    public $email;
-    public $address;
-    public $phone;
-    public $date_of_birth;
+    public $name, $email, $phone, $date_of_birth, $gender;
+    public $address_line_1, $address_line_2, $city, $state, $postcode, $country;
+    public $password, $password_confirmation;
     public $is_active;
-    public $password;
-    public $password_confirmation;
     public $selectedRoleID;
     public $roles;
 
-    public function mount(User $user)
+    public function mount(User $user = null)
     {
-        $this->user = $user;
+        $this->user = $user ?? new User();
         $this->name = $user->name;
         $this->email = $user->email;
-        $this->address = $user->address;
+        $this->address_line_1 = $user->address_line_1;
+        $this->address_line_2 = $user->address_line_2;
+        $this->city = $user->city;
+        $this->state = $user->state;
+        $this->postcode = $user->postcode;
+        $this->country = $user->country;
         $this->phone = $user->phone;
         $this->date_of_birth = $user->date_of_birth;
+        $this->gender = $user->gender;
         $this->is_active = $user->exists ? (bool) $user->is_active : false;
         $this->password = '';
         $this->password_confirmation = '';
@@ -43,9 +45,15 @@ class CreateEdit extends Component
         $rules = [
             'name' => ['required', 'string', 'max:25'],
             'email' => ['required', 'email', 'max:25'],
-            'address' => ['required', 'max:500'],
+            'address_line_1' => ['required', 'max:100'],
+            'address_line_2' => ['nullable', 'max:100'],
+            'city' => ['required', 'max:50'],
+            'state' => ['required', 'max:50'],
+            'postcode' => ['required', 'max:20'],
+            'country' => ['required', 'max:50'],
             'phone' => ['required', 'max:20'],
             'date_of_birth' => ['required', 'date'],
+            'gender' => ['required', 'max:10', 'in:male,female'],
             'is_active' => ['nullable', 'boolean'],
             'selectedRoleID' => ['required', 'integer', 'exists:roles,id'],
         ];
@@ -65,9 +73,15 @@ class CreateEdit extends Component
 
         $this->user->name = $this->name;
         $this->user->email = $this->email;
-        $this->user->address = $this->address;
+        $this->user->address_line_1 = $this->address_line_1;
+        $this->user->address_line_2 = $this->address_line_2;
+        $this->user->city = $this->city;
+        $this->user->state = $this->state;
+        $this->user->postcode = $this->postcode;
+        $this->user->country = $this->country;
         $this->user->phone = $this->phone;
         $this->user->date_of_birth = $this->date_of_birth;
+        $this->user->gender = $this->gender;
         $this->user->is_active = sanitiseBoolean($this->is_active);
 
         if (!empty($this->password)) {
@@ -82,6 +96,7 @@ class CreateEdit extends Component
         session()->flash('success', 'User successfully saved!');
         return redirect()->route('user.index');
     }
+
 
 
     public function render()

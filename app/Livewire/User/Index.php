@@ -2,11 +2,12 @@
 
 namespace App\Livewire\User;
 
+use App\Models\Role;
+use App\Models\User;
 use Livewire\Component;
 use App\Livewire\Traits\Search;
 use Livewire\Attributes\Locked;
 use App\Livewire\Traits\Pagination;
-use App\Models\User;
 
 class Index extends Component
 {
@@ -44,6 +45,7 @@ class Index extends Component
                 ->where('name', 'like', '%' . $this->search . '%')
                 ->orWhere('email', 'like', '%' . $this->search . '%')
                 ->paginate($this->perPage),
+            'roles' => Role::all()
         ]);
     }
 }

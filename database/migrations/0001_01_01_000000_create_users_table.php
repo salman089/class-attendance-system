@@ -16,9 +16,17 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->text('address');
+
+            $table->string('address_line_1');
+            $table->string('address_line_2')->nullable();
+            $table->string('city');
+            $table->string('state');
+            $table->string('postcode');
+            $table->string('country');
+
             $table->string('phone');
             $table->date('date_of_birth');
+            $table->string('gender');
             $table->boolean('is_active')->default(false);
             $table->boolean('is_superuser')->default(false);
             $table->rememberToken();
