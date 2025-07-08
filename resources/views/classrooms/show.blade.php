@@ -36,7 +36,7 @@
                                         @if ($classroom->subjects->isNotEmpty())
                                             <ul class="space-y-1 list-disc list-inside">
                                                 @foreach ($classroom->subjects as $subject)
-                                                    <li>{{ $subject->name }}</li>
+                                                    <li>{{ $subject->name }} - {{ $subject->teacher->name ?? 'Not assigned' }}</li>
                                                 @endforeach
                                             </ul>
                                         @else
