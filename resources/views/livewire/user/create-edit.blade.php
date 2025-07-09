@@ -199,8 +199,9 @@
 
                 @if ($selectedRoleID == $studentRoleID)
                     <div class="space-y-6">
+                        <div class="flex space-x-6">
                         <!-- Classroom -->
-                        <div>
+                        <div class="w-1/2">
                             <label for="classroom_id" class="block text-sm font-medium text-white">Classroom</label>
                             <select id="classroom_id" wire:model="classroom_id"
                                 class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
@@ -210,10 +211,20 @@
                                 @endforeach
                             </select>
                             @error('classroom_id')
+                                <span class="text-sm text-red-500">Please choose a classroom</span>
+                            @enderror
+                        </div>
+
+                        <div class="w-1/2">
+                            <label for "roll_no" class="block text-sm font-medium text-white">Roll No</label>
+                            <input type="text" wire:model="roll_no" id="roll_no" placeholder="Enter roll no"
+                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
+                            @error('roll_no')
                                 <span class="text-sm text-red-500">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
+                </div>
 
                         <!-- Guardian Name -->
                         <div>

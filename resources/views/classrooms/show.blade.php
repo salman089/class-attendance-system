@@ -62,6 +62,13 @@
                                     </td>
                                 </tr>
 
+                                <tr class="border-b border-[#2f2f2f] align-top">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">Students</th>
+                                    <td class="px-6 py-4 hover:bg-[#444242] text-gray-400">
+                                        {{ $classroom->students->count() }} Students
+                                    </td>
+                                </tr>
+
                                 <tr class="border-b border-[#2f2f2f]">
                                     <th class="px-6 py-4 font-medium text-white bg-[#292929]">Created At</th>
                                     <td class="px-6 py-4 hover:bg-[#444242]">

@@ -11,4 +11,5 @@ trait Pagination
 
     #[Session]
     public $perPage = 25;
+    public $filter = 'All';
 }

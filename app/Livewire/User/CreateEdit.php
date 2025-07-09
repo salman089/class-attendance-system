@@ -20,7 +20,7 @@ class CreateEdit extends Component
     public $selectedRoleID;
     public $roles;
     public $studentRoleID;
-    public $guardian_name, $guardian_relation, $guardian_phone;
+    public $guardian_name, $guardian_relation, $guardian_phone, $roll_no;
     public $classroom_id, $classrooms;
 
     public function mount(User $user = null)
@@ -43,6 +43,7 @@ class CreateEdit extends Component
         $this->guardian_name = $user->guardian_name;
         $this->guardian_relation = $user->guardian_relation;
         $this->guardian_phone = $user->guardian_phone;
+        $this->roll_no = $user->roll_no;
 
         $this->classroom_id = $user->classroom_id;
 
@@ -77,6 +78,7 @@ class CreateEdit extends Component
             $rules['guardian_relation'] = ['required', 'max:25'];
             $rules['guardian_phone'] = ['required', 'max:20'];
             $rules['classroom_id'] = ['required', 'exists:classrooms,id'];
+            $rules['roll_no'] = ['required', 'max:20'];
         }
 
         if (!$this->user->exists) {
@@ -110,11 +112,13 @@ class CreateEdit extends Component
             $this->user->guardian_relation = $this->guardian_relation;
             $this->user->guardian_phone = $this->guardian_phone;
             $this->user->classroom_id = $this->classroom_id;
+            $this->user->roll_no = $this->roll_no;
         } else {
             $this->user->guardian_name = null;
             $this->user->guardian_relation = null;
             $this->user->guardian_phone = null;
             $this->user->classroom_id = null;
+            $this->user->roll_no = null;
         }
 
         if (!empty($this->password)) {

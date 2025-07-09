@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
          DB::table('users')->insert([
-            [ 'name' => 'Salman Kazi',
-                'email' => 'sskazi089@gmail.com',
+            [ 'name' => 'Super User',
+                'email' => 'superuser@gmail.com',
                 'password' => Hash::make('password'),
                 'address_line_1' => 'Shaukat Electrics Works',
                 'address_line_2' => 'Kalkai Kond',

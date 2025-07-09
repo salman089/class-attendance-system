@@ -13,7 +13,7 @@ class Classroom extends Model
 
     public function students()
     {
-        return $this->belongsToMany(User::class);
+        return $this->hasMany(User::class);
     }
 
     public function subjects()
@@ -24,5 +24,10 @@ class Classroom extends Model
     public function head_of_department()
     {
         return $this->belongsTo(User::class, 'head_of_department_id');
+    }
+
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class);
     }
 }

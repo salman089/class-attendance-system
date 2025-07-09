@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('guardian_relation')->nullable();
             $table->string('guardian_phone')->nullable();
             $table->foreignId('classroom_id')->nullable();
-
+            $table->string('roll_no')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

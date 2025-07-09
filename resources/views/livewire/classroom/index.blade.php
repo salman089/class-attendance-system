@@ -10,7 +10,7 @@
 
             {{-- Search --}}
             @include('partials.search', [
-                'label' => 'Search by classrooms name or section...',
+                'label' => 'Search by name or section...',
             ])
 
             {{-- Filter  --}}

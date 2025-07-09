@@ -1,29 +1,23 @@
 <div>
-    <div class="flex flex-col gap-4 mt-2 mb-2 sm:flex-row sm:items-center sm:justify-between">
-        {{-- Title --}}
-        <div class="flex items-center space-x-2">
-            <h3 class="text-lg font-semibold text-white">Manage Users</h3>
-        </div>
+    <div class="flex items-center justify-between gap-10 py-2">
+        <!-- Title -->
+        <h3 class="text-lg font-semibold text-white whitespace-nowrap">Manage Users</h3>
 
-        {{-- Actions --}}
-        <div class="flex flex-wrap items-center gap-3 sm:justify-end">
-
+        <!-- Actions -->
+        <div class="flex items-center gap-3">
             {{-- Search --}}
-            @include('partials.search', [
-                'label' => 'Search by role, user name or email...',
-            ])
+            @include('partials.search', ['label' => 'Search by name or email...'])
 
-            {{-- Filter  --}}
+
+            {{-- Pagination --}}
             @include('partials.pagination')
 
             {{-- Create Button --}}
             @can('create_users')
                 @if ($roles->isNotEmpty())
                     <x-create-button href="{{ route('user.create') }}">
-                        <div class="flex items-center space-x-2">
-                            <i class="fa-solid fa-user-plus"></i>
-                            <span>Create</span>
-                        </div>
+                        <i class="mr-1 fa-solid fa-user-plus"></i>
+                        <span>Create</span>
                     </x-create-button>
                 @endif
             @endcan
@@ -31,12 +25,17 @@
             {{-- Roles --}}
             @if (auth()->user()->is_superuser)
                 <a href="{{ route('user.role.index') }}"
-                    class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-green-600 rounded-md hover:bg-green-500 focus:bg-green-700 active:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2">
+                    class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500">
                     <i class="mr-2 fa-solid fa-user-secret"></i>
                     Roles
                 </a>
             @endif
         </div>
+    </div>
+
+    {{-- Filter --}}
+    <div class="flex justify-end mt-2">
+        @include('partials.filter')
     </div>
 
     {{-- Table --}}
@@ -46,7 +45,6 @@
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     @include('partials.success')
                     @include('partials.alert')
-
                     <table class="w-full text-sm text-left text-gray-300 rtl:text-right">
                         <thead class="text-xs text-white uppercase bg-black">
                             <tr>

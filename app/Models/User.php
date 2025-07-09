@@ -35,6 +35,8 @@ class User extends Authenticatable
         'guardian_name',
         'guardian_relation',
         'guardian_phone',
+        'classroom_id',
+        'roll_no',
     ];
 
     /**
@@ -79,6 +81,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Subject::class, 'teacher_id');
     }
+
+    public function markedAttendances()
+    {
+        return $this->hasMany(Attendance::class, 'marked_by');
+    }
+
 
     public function hasAccess(string $permissionName)
     {
