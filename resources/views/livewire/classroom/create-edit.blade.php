@@ -35,6 +35,25 @@
                     @enderror
                 </div>
             </div>
+
+            <!-- Teacher Dropdown -->
+            <div class="sm:col-span-3">
+                <label for="head_of_department" class="block text-sm font-medium text-white">Head of Department</label>
+                <div class="mt-2">
+                    <select wire:model="head_of_department_id" id="head_of_department"
+                        class="block w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+                        <option value="">No Head of Department Selected</option>
+                        @foreach ($head_of_departments as $head_of_department)
+                            <option value="{{ $head_of_department->id }}">
+                                {{ $head_of_department->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('head_of_department')
+                        <span class="text-sm text-red-500">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
         </div>
 
         <!-- Form Actions -->

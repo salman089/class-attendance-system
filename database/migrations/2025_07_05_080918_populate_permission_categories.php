@@ -29,7 +29,17 @@ return new class extends Migration
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Student',
+                'name' => 'Students',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Attendance',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Reports',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

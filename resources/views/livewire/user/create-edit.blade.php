@@ -144,7 +144,8 @@
 
                         <div class="w-1/2">
                             <label for="postcode" class="block text-sm font-medium text-white">Postal Code</label>
-                            <input type="text" wire:model="postcode" id="postcode" placeholder="Enter postal code"
+                            <input type="text" wire:model="postcode" id="postcode"
+                                placeholder="Enter postal code"
                                 class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
                             @error('postcode')
                                 <span class="text-sm text-red-500">{{ $message }}</span>
@@ -153,7 +154,6 @@
                     </div>
 
                     <div class="flex mt-4 space-x-6">
-
                         <!-- Country -->
                         <div class="w-1/2">
                             <label for="country" class="block text-sm font-medium text-white">Country</label>
@@ -179,83 +179,94 @@
                     </div>
                 </div>
 
-                <!-- Is Active -->
-                <div>
-                    <label for="is_active" class="inline-flex items-center">
-                        <input type="checkbox" wire:model="is_active" id="is_active"
-                            class="text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500" />
-                        <span class="ml-2 text-sm text-white">Active?</span>
-                    </label>
-                    @error('is_active')
-                        <span class="text-sm text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
+                @if ($roles->isNotEmpty())
+                    <!-- Role Dropdown -->
+                    <div>
+                        <label for="selectedRoleID" class="block text-sm font-medium text-white">Select
+                            Role</label>
+                        <select id="selectedRoleID" wire:model="selectedRoleID" wire:change="$refresh"
+                            class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+                            <option value="">-- Select Role --</option>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->id }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('selectedRoleID')
+                            <span class="text-sm text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                @endif
+
+                @if ($selectedRoleID == $studentRoleID)
+                    <div class="space-y-6">
+                        <!-- Classroom -->
+                        <div>
+                            <label for="classroom_id" class="block text-sm font-medium text-white">Classroom</label>
+                            <select id="classroom_id" wire:model="classroom_id"
+                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+                                <option value="">-- Select Classroom --</option>
+                                @foreach ($classrooms as $classroom)
+                                    <option value="{{ $classroom->id }}">{{ $classroom->name }} ({{ $classroom->section }})</option>
+                                @endforeach
+                            </select>
+                            @error('classroom_id')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                        <!-- Guardian Name -->
+                        <div>
+                            <label for="guardian_name" class="block text-sm font-medium text-white">Guardian
+                                Name</label>
+                            <input type="text" wire:model="guardian_name" id="guardian_name"
+                                placeholder="Enter guardian name"
+                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
+                            @error('guardian_name')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="flex space-x-6">
+                            <!-- Guardian Relation -->
+                            <div class="w-1/2">
+                                <label for="guardian_relation"
+                                    class="block text-sm font-medium text-white">Relation</label>
+                                <input type="text" wire:model="guardian_relation" id="guardian_relation"
+                                    placeholder="Enter relation"
+                                    class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
+                                @error('guardian_relation')
+                                    <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
+
+                            <!-- Guardian Phone -->
+                            <div class="w-1/2">
+                                <label for="guardian_phone" class="block text-sm font-medium text-white">Guardian
+                                    Phone Number</label>
+                                <input type="text" wire:model="guardian_phone" id="guardian_phone"
+                                    placeholder="Enter guardian phone number"
+                                    class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
+                                @error('guardian_phone')
+                                    <span class="text-sm text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
 
-            <!-- Role & Permissions Table -->
-            @if ($roles->isNotEmpty())
-                <div class="mt-8">
-                    <label class="block mb-2 text-sm font-medium text-white">Select Role</label>
-
-                    <table class="w-full text-sm text-left text-gray-300">
-                        <thead class="text-xs text-white bg-[#2f2f2f]">
-                            <tr>
-                                <th class="w-1/4 px-4 py-3">Role</th>
-                                <th class="px-4 py-3">Permission Category</th>
-                                <th class="px-4 py-3">Permissions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($roles as $role)
-                                @php
-                                    $grouped = $role->permissions->groupBy(
-                                        fn($p) => $p->category?->name ?? 'Uncategorized',
-                                    );
-                                    $rowspan = $grouped->reduce(fn($c, $items) => $c + $items->count(), 0);
-                                @endphp
-
-                                @foreach ($grouped as $categoryName => $permissions)
-                                    @foreach ($permissions as $permission)
-                                        <tr class="border-b border-[#2f2f2f] odd:bg-[#292929] even:bg-[#1f1f1f]">
-                                            @if ($loop->parent->first && $loop->first)
-                                                <td class="px-4 py-3 align-top" rowspan="{{ $rowspan }}">
-                                                    <label class="inline-flex items-center space-x-2">
-                                                        <input type="radio" name="selectedRole"
-                                                            value="{{ $role->id }}" wire:model="selectedRoleID"
-                                                            class="text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring focus:ring-blue-500" />
-                                                        <span
-                                                            class="font-medium text-white">{{ $role->name }}</span>
-                                                    </label>
-                                                </td>
-                                            @endif
-
-                                            @if ($loop->first)
-                                                <td class="px-4 py-3 align-top"
-                                                    rowspan="{{ $permissions->count() }}">
-                                                    {{ $categoryName }}
-                                                </td>
-                                            @endif
-
-                                            <td class="px-4 py-3 hover:bg-gray-700">
-                                                <div class="flex flex-col space-y-1">
-                                                    <div class="font-medium text-white">{{ $permission->title }}
-                                                    </div>
-                                                    <div class="text-xs text-gray-400">
-                                                        {{ $permission->description }}
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @error('selectedRoleID')
-                        <span class="text-sm text-red-500">{{ $message }}</span>
-                    @enderror
-                </div>
-            @endif
+            <!-- Is Active -->
+            <div class="mt-4">
+                <label for="is_active" class="inline-flex items-center">
+                    <input type="checkbox" wire:model="is_active" id="is_active"
+                        class="text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500" />
+                    <span class="ml-2 text-sm text-white">Active?</span>
+                </label>
+                @error('is_active')
+                    <span class="text-sm text-red-500">{{ $message }}</span>
+                @enderror
+            </div>
 
             <!-- Save Button -->
             <div class="flex items-center justify-end mt-8 gap-x-4">

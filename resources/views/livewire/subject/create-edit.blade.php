@@ -14,7 +14,7 @@
         <div class="grid grid-cols-1 mt-6 gap-x-6 gap-y-3 sm:grid-cols-6">
             <!-- Name -->
             <div class="sm:col-span-3">
-                <label for="name" class="block text-sm font-medium text-white">Name</label>
+                <label for="name" class="block text-sm font-medium text-white">Subject Name</label>
                 <div class="mt-2">
                     <input type="text" wire:model="name" id="name" placeholder="Enter subject name"
                         class="block w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />

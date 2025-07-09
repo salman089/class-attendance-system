@@ -32,6 +32,9 @@ class User extends Authenticatable
         'gender',
         'is_active',
         'is_superuser',
+        'guardian_name',
+        'guardian_relation',
+        'guardian_phone',
     ];
 
     /**

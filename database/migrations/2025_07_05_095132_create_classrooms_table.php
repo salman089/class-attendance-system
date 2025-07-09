@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('section');
+            $table->foreignId('head_of_department_id')->nullable();
             $table->timestamps();
         });
     }

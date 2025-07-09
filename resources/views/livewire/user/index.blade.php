@@ -10,7 +10,7 @@
 
             {{-- Search --}}
             @include('partials.search', [
-                'label' => 'Search by user name or email...',
+                'label' => 'Search by role, user name or email...',
             ])
 
             {{-- Filter  --}}
@@ -65,6 +65,11 @@
                                     <td class="px-6 py-4">{{ $user->name }}</td>
                                     <td class="px-6 py-4">{{ $user->email }}</td>
                                     <td class="px-6 py-4">{{ $user->phone }}</td>
+                                    @forelse ($user->roles as $role)
+                                        <td class="px-6 py-4 hover:bg-[#444242]">{{ $role->name }}</td>
+                                    @empty
+                                        <td class="px-6 py-4">No roles assigned</td>
+                                    @endforelse
                                     <td class="px-6 py-4 space-x-2 whitespace-nowrap">
 
                                         {{-- Edit --}}

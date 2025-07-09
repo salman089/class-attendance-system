@@ -5,6 +5,8 @@ namespace App\Livewire\User;
 use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
+use App\Models\Classroom;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,6 +19,9 @@ class CreateEdit extends Component
     public $is_active;
     public $selectedRoleID;
     public $roles;
+    public $studentRoleID;
+    public $guardian_name, $guardian_relation, $guardian_phone;
+    public $classroom_id, $classrooms;
 
     public function mount(User $user = null)
     {
@@ -35,16 +40,25 @@ class CreateEdit extends Component
         $this->is_active = $user->exists ? (bool) $user->is_active : false;
         $this->password = '';
         $this->password_confirmation = '';
+        $this->guardian_name = $user->guardian_name;
+        $this->guardian_relation = $user->guardian_relation;
+        $this->guardian_phone = $user->guardian_phone;
+
+        $this->classroom_id = $user->classroom_id;
+
+        $this->classrooms = Classroom::all();
 
         $this->roles = Role::with('permissions.category')->get();
         $this->selectedRoleID = $this->user->roles->first()?->id;
+
+        $this->studentRoleID = Role::where('name', 'Student')->value('id');
     }
 
     public function rules()
     {
         $rules = [
             'name' => ['required', 'string', 'max:25'],
-            'email' => ['required', 'email', 'max:25'],
+            'email' => ['required', 'email', 'max:50', Rule::unique('users', 'email')->ignore($this->user->id)],
             'address_line_1' => ['required', 'max:100'],
             'address_line_2' => ['nullable', 'max:100'],
             'city' => ['required', 'max:50'],
@@ -55,8 +69,15 @@ class CreateEdit extends Component
             'date_of_birth' => ['required', 'date'],
             'gender' => ['required', 'max:10', 'in:male,female'],
             'is_active' => ['nullable', 'boolean'],
-            'selectedRoleID' => ['required', 'integer', 'exists:roles,id'],
+            'selectedRoleID' => ['required', 'exists:roles,id'],
         ];
+
+        if ($this->selectedRoleID == $this->studentRoleID) {
+            $rules['guardian_name'] = ['required', 'max:25'];
+            $rules['guardian_relation'] = ['required', 'max:25'];
+            $rules['guardian_phone'] = ['required', 'max:20'];
+            $rules['classroom_id'] = ['required', 'exists:classrooms,id'];
+        }
 
         if (!$this->user->exists) {
             $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
@@ -84,6 +105,18 @@ class CreateEdit extends Component
         $this->user->gender = $this->gender;
         $this->user->is_active = sanitiseBoolean($this->is_active);
 
+        if ($this->selectedRoleID == $this->studentRoleID) {
+            $this->user->guardian_name = $this->guardian_name;
+            $this->user->guardian_relation = $this->guardian_relation;
+            $this->user->guardian_phone = $this->guardian_phone;
+            $this->user->classroom_id = $this->classroom_id;
+        } else {
+            $this->user->guardian_name = null;
+            $this->user->guardian_relation = null;
+            $this->user->guardian_phone = null;
+            $this->user->classroom_id = null;
+        }
+
         if (!empty($this->password)) {
             $this->user->password = Hash::make($this->password);
         }
@@ -96,8 +129,6 @@ class CreateEdit extends Component
         session()->flash('success', 'User successfully saved!');
         return redirect()->route('user.index');
     }
-
-
 
     public function render()
     {

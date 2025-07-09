@@ -29,6 +29,13 @@ return new class extends Migration
             $table->string('gender');
             $table->boolean('is_active')->default(false);
             $table->boolean('is_superuser')->default(false);
+
+            $table->string('guardian_name')->nullable();
+            $table->string('guardian_relation')->nullable();
+            $table->string('guardian_phone')->nullable();
+            $table->foreignId('classroom_id')->nullable();
+
+
             $table->rememberToken();
             $table->timestamps();
         });

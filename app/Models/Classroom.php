@@ -20,4 +20,9 @@ class Classroom extends Model
     {
         return $this->hasMany(Subject::class);
     }
+
+    public function head_of_department()
+    {
+        return $this->belongsTo(User::class, 'head_of_department_id');
+    }
 }

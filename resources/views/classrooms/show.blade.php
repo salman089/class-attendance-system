@@ -36,11 +36,28 @@
                                         @if ($classroom->subjects->isNotEmpty())
                                             <ul class="space-y-1 list-disc list-inside">
                                                 @foreach ($classroom->subjects as $subject)
-                                                    <li>{{ $subject->name }} - {{ $subject->teacher->name ?? 'Not assigned' }}</li>
+                                                    <li>{{ $subject->name }} -
+                                                        {{ $subject->teacher->name ?? 'Not assigned' }}</li>
                                                 @endforeach
                                             </ul>
                                         @else
                                             <span class="text-gray-400">No subjects assigned</span>
+                                        @endif
+                                    </td>
+                                </tr>
+
+                                @php
+                                    $hod = $classroom->head_of_department;
+                                @endphp
+
+                                <tr class="border-b border-[#2f2f2f] align-top">
+                                    <th class="px-6 py-4 font-medium text-white bg-[#292929] w-1/3">Head of Department
+                                    </th>
+                                    <td class="px-6 py-4 hover:bg-[#444242] text-gray-400">
+                                        @if ($hod)
+                                            {{ $hod->name }}
+                                        @else
+                                            <span class="text-gray-400">No HOD assigned</span>
                                         @endif
                                     </td>
                                 </tr>

@@ -28,6 +28,7 @@ class Index extends Component
             'Name',
             'Email',
             'Phone',
+            'Role',
             'Actions',
         ];
     }
@@ -41,10 +42,14 @@ class Index extends Component
     public function render()
     {
         return view('livewire.user.index', [
-            'users' => User::query()
-                ->where('name', 'like', '%' . $this->search . '%')
-                ->orWhere('email', 'like', '%' . $this->search . '%')
-                ->paginate($this->perPage),
+            'users' => User::with('roles')
+                ->where(function ($query) {
+                    $query->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhere('email', 'like', '%' . $this->search . '%');
+                })
+                ->orWhereHas('roles', function ($q) {
+                    $q->where('name', 'like', '%' . $this->search . '%');
+                })->paginate($this->perPage),
             'roles' => Role::all()
         ]);
     }
