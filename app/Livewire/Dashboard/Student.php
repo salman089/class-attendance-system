@@ -12,10 +12,15 @@ class Student extends Component
     public $totalSubjects;
     public $weeklyData = [];
     public $recentAttendances = [];
+    public $subjects;
 
     public function mount()
     {
         $student = Auth::user();
+
+        $this->subjects = $student->classroom_id
+            ? $student->classroom->subjects
+            : [];
 
         $this->totalSubjects = $student->classroom_id
             ? $student->classroom->subjects->count()

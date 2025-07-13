@@ -10,6 +10,18 @@
                 {{-- Cards --}}
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     <x-dashboard.card title="Total Subjects" :value="$totalSubjects" icon="fa-book" color="indigo" />
+                    <div class="p-6 bg-[#2e2b2b] hover:bg-[#555151] rounded-xl shadow">
+                        <h2 class="mb-3 text-lg font-semibold text-white">Subjects</h2>
+                        <ul class="space-y-2 text-sm text-gray-300">
+                            @forelse($subjects as $subject)
+                                <li>
+                                    <strong class="text-white">{{ $subject->name ?? '-' }}</strong>
+                                </li>
+                            @empty
+                                <li>No recent attendance records found.</li>
+                            @endforelse
+                        </ul>
+                    </div>
                 </div>
 
                 {{-- Charts and Attendance --}}
