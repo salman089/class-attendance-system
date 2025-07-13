@@ -39,8 +39,8 @@ class CreateEdit extends Component
             'name' => ['required', 'max:25'],
             'description' => ['nullable', 'max:500'],
             'subject_code' => ['nullable', 'max:25'],
-            'classroom_id' => ['nullable', 'exists:classrooms,id'],
-            'teacher_id' => ['nullable', 'exists:users,id'],
+            'classroom_id' => ['required', 'exists:classrooms,id'],
+            'teacher_id' => ['required', 'exists:users,id'],
         ];
     }
 

@@ -31,7 +31,7 @@ class CreateEdit extends Component
         return [
             'name' => ['required', 'max:25'],
             'section' => ['required', 'max:25'],
-            'head_of_department_id' => ['nullable', 'exists:users,id'],
+            'head_of_department_id' => ['required', 'exists:users,id'],
         ];
     }
 

@@ -29,12 +29,12 @@ return new class extends Migration
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Students',
+                'name' => 'Attendance',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Attendance',
+                'name' => 'Dashboard',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
@@ -42,7 +42,7 @@ return new class extends Migration
                 'name' => 'Reports',
                 'created_at' => now(),
                 'updated_at' => now(),
-            ],
+            ]
         ]);
     }
 

@@ -49,8 +49,8 @@
                             </option>
                         @endforeach
                     </select>
-                    @error('head_of_department')
-                        <span class="text-sm text-red-500">{{ $message }}</span>
+                    @error('head_of_department_id')
+                        <span class="text-sm text-red-500">Please select a head of department</span>
                     @enderror
                 </div>
             </div>

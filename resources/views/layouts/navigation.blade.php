@@ -31,6 +31,10 @@
                             <i class="mr-1 fas fa-book"></i> {{ __('Subjects') }}
                         </x-nav-link>
                     @endcan
+
+                    <x-nav-link :href="route('attendance.index')" :active="request()->routeIs('attendance.*')">
+                        <i class="mr-1 fas fa-calendar-check"></i> {{ __('Attendances') }}
+                    </x-nav-link>
                 </div>
 
             </div>

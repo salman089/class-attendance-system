@@ -53,6 +53,14 @@ return new class extends Migration
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'view_classrooms_as_hod',
+                'title' => 'View as HOD',
+                'description' => 'Can view classrooms where the user is Head of Department',
+                'category_id' => $classroomCategoryID,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 

@@ -82,11 +82,15 @@ class User extends Authenticatable
         return $this->hasMany(Subject::class, 'teacher_id');
     }
 
+    public function attendances()
+    {
+        return $this->hasMany(Attendance::class, 'user_id');
+    }
+
     public function markedAttendances()
     {
         return $this->hasMany(Attendance::class, 'marked_by');
     }
-
 
     public function hasAccess(string $permissionName)
     {
@@ -102,6 +106,12 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function hasAnyRole(array $roleNames)
+    {
+        return $this->roles->whereIn('name', $roleNames)->isNotEmpty();
+    }
+
 
     public function scopeWithRole($query, $roleNames)
     {

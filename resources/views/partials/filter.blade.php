@@ -4,6 +4,7 @@
     <select wire:model.live="filter" id="filter"
       class="text-sm text-white bg-black rounded-md shadow-sm border-b border-[#363634] focus:border-blue-500 focus:ring-blue-500">
       <option value="All">All</option>
+      <option value="Admin">Admins</option>
       <option value="Student">Students</option>
       <option value="Head of Department">Head of Departments</option>
       <option value="Teacher">Teachers</option>

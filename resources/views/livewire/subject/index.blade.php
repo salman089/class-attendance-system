@@ -68,6 +68,11 @@
                                     </td>
                                     <td class="px-6 py-4 space-x-2 whitespace-nowrap">
 
+                                        {{-- <a href="{{ route('subject.mark', $subject->id) }}"
+                                            class="font-medium text-orange-400 hover:underline">
+                                            Mark
+                                        </a> --}}
+
                                         {{-- Edit --}}
                                         @can('edit_subjects')
                                             <a href="{{ route('subject.edit', $subject->id) }}"

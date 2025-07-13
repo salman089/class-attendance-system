@@ -10,6 +10,6 @@ trait Pagination
     use WithPagination;
 
     #[Session]
-    public $perPage = 25;
+    public $perPage = 10;
     public $filter = 'All';
 }

@@ -53,6 +53,7 @@
                                     <td class="px-6 py-4">{{ $classroom->id }}</td>
                                     <td class="px-6 py-4">{{ $classroom->name }}</td>
                                     <td class="px-6 py-4">{{ $classroom->section }}</td>
+                                    <td class="px-6 py-4">{{ $classroom->head_of_department->name ?? 'Not assigned' }}</td>
                                     <td class="px-6 py-4 space-x-2 whitespace-nowrap">
 
                                         {{-- Edit --}}

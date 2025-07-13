@@ -1,11 +1,13 @@
 <?php
 
+use App\Livewire\Subject\Mark;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\AttendanceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +37,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [SubjectController::class, 'create'])->name('subject.create')->middleware('can:create_subjects');
         Route::get('/{subject}/edit', [SubjectController::class, 'edit'])->name('subject.edit')->middleware('can:edit_subjects');
         Route::get('/{subject}/show', [SubjectController::class, 'show'])->name('subject.show')->middleware('can:view_subjects');
+    });
+
+    Route::prefix('/attendances')->group(function () {
+        Route::get('/', [AttendanceController::class, 'index'])->name('attendance.index');
+        Route::get('/mark/{subjectId}/{date}', [AttendanceController::class, 'mark'])->name('attendance.mark');
+        Route::get('/attendances/show/{subjectId}/{date}', [AttendanceController::class, 'show'])->name('attendance.show');
     });
 
     // Users

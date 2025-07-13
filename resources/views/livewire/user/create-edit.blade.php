@@ -200,94 +200,97 @@
                 @if ($selectedRoleID == $studentRoleID)
                     <div class="space-y-6">
                         <div class="flex space-x-6">
-                        <!-- Classroom -->
-                        <div class="w-1/2">
-                            <label for="classroom_id" class="block text-sm font-medium text-white">Classroom</label>
-                            <select id="classroom_id" wire:model="classroom_id"
-                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
-                                <option value="">-- Select Classroom --</option>
-                                @foreach ($classrooms as $classroom)
-                                    <option value="{{ $classroom->id }}">{{ $classroom->name }} ({{ $classroom->section }})</option>
-                                @endforeach
-                            </select>
-                            @error('classroom_id')
-                                <span class="text-sm text-red-500">Please choose a classroom</span>
-                            @enderror
-                        </div>
-
-                        <div class="w-1/2">
-                            <label for "roll_no" class="block text-sm font-medium text-white">Roll No</label>
-                            <input type="text" wire:model="roll_no" id="roll_no" placeholder="Enter roll no"
-                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
-                            @error('roll_no')
-                                <span class="text-sm text-red-500">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                        <!-- Guardian Name -->
-                        <div>
-                            <label for="guardian_name" class="block text-sm font-medium text-white">Guardian
-                                Name</label>
-                            <input type="text" wire:model="guardian_name" id="guardian_name"
-                                placeholder="Enter guardian name"
-                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
-                            @error('guardian_name')
-                                <span class="text-sm text-red-500">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="flex space-x-6">
-                            <!-- Guardian Relation -->
+                            <!-- Classroom -->
                             <div class="w-1/2">
-                                <label for="guardian_relation"
-                                    class="block text-sm font-medium text-white">Relation</label>
-                                <input type="text" wire:model="guardian_relation" id="guardian_relation"
-                                    placeholder="Enter relation"
-                                    class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
-                                @error('guardian_relation')
-                                    <span class="text-sm text-red-500">{{ $message }}</span>
+                                <label for="classroom_id"
+                                    class="block text-sm font-medium text-white">Classroom</label>
+                                <select id="classroom_id" wire:model="classroom_id"
+                                    class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm">
+                                    <option value="">-- Select Classroom --</option>
+                                    @foreach ($classrooms as $classroom)
+                                        <option value="{{ $classroom->id }}">{{ $classroom->name }}
+                                            ({{ $classroom->section }})</option>
+                                    @endforeach
+                                </select>
+                                @error('classroom_id')
+                                    <span class="text-sm text-red-500">Please choose a classroom</span>
                                 @enderror
                             </div>
 
-                            <!-- Guardian Phone -->
                             <div class="w-1/2">
-                                <label for="guardian_phone" class="block text-sm font-medium text-white">Guardian
-                                    Phone Number</label>
-                                <input type="text" wire:model="guardian_phone" id="guardian_phone"
-                                    placeholder="Enter guardian phone number"
+                                <label for "roll_no" class="block text-sm font-medium text-white">Roll No</label>
+                                <input type="text" wire:model="roll_no" id="roll_no"
+                                    placeholder="Enter roll no"
                                     class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
-                                @error('guardian_phone')
+                                @error('roll_no')
                                     <span class="text-sm text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
                     </div>
-                @endif
-            </div>
 
-            <!-- Is Active -->
-            <div class="mt-4">
-                <label for="is_active" class="inline-flex items-center">
-                    <input type="checkbox" wire:model="is_active" id="is_active"
-                        class="text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500" />
-                    <span class="ml-2 text-sm text-white">Active?</span>
-                </label>
-                @error('is_active')
-                    <span class="text-sm text-red-500">{{ $message }}</span>
-                @enderror
-            </div>
+                    <!-- Guardian Name -->
+                    <div>
+                        <label for="guardian_name" class="block text-sm font-medium text-white">Guardian
+                            Name</label>
+                        <input type="text" wire:model="guardian_name" id="guardian_name"
+                            placeholder="Enter guardian name"
+                            class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
+                        @error('guardian_name')
+                            <span class="text-sm text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
 
-            <!-- Save Button -->
-            <div class="flex items-center justify-end mt-8 gap-x-4">
-                <a href="{{ route('user.index') }}"
-                    class="px-2 text-sm font-semibold text-gray-300 hover:text-white">Back</a>
-                <button type="submit"
-                    class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    Save
-                </button>
+                    <div class="flex space-x-6">
+                        <!-- Guardian Relation -->
+                        <div class="w-1/2">
+                            <label for="guardian_relation"
+                                class="block text-sm font-medium text-white">Relation</label>
+                            <input type="text" wire:model="guardian_relation" id="guardian_relation"
+                                placeholder="Enter relation"
+                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
+                            @error('guardian_relation')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <!-- Guardian Phone -->
+                        <div class="w-1/2">
+                            <label for="guardian_phone" class="block text-sm font-medium text-white">Guardian
+                                Phone Number</label>
+                            <input type="text" wire:model="guardian_phone" id="guardian_phone"
+                                placeholder="Enter guardian phone number"
+                                class="mt-2 w-full rounded-md bg-[#1f1f1f] h-[38px] px-3 py-2 text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 sm:text-sm" />
+                            @error('guardian_phone')
+                                <span class="text-sm text-red-500">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
             </div>
+            @endif
         </div>
-    </form>
+
+        <!-- Is Active -->
+        <div class="mt-4">
+            <label for="is_active" class="inline-flex items-center">
+                <input type="checkbox" wire:model="is_active" id="is_active"
+                    class="text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500" />
+                <span class="ml-2 text-sm text-white">Active?</span>
+            </label>
+            @error('is_active')
+                <span class="text-sm text-red-500">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Save Button -->
+        <div class="flex items-center justify-end mt-8 gap-x-4">
+            <a href="{{ route('user.index') }}"
+                class="px-2 text-sm font-semibold text-gray-300 hover:text-white">Back</a>
+            <button type="submit"
+                class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                Save
+            </button>
+        </div>
+</div>
+</form>
 </div>

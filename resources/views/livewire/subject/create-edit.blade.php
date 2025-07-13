@@ -48,7 +48,7 @@
                         @endforeach
                     </select>
                     @error('classroom_id')
-                        <span class="text-sm text-red-500">{{ $message }}</span>
+                        <span class="text-sm text-red-500">Please select a classroom</span>
                     @enderror
                 </div>
             </div>
@@ -67,7 +67,7 @@
                         @endforeach
                     </select>
                     @error('teacher_id')
-                        <span class="text-sm text-red-500">{{ $message }}</span>
+                        <span class="text-sm text-red-500">Please select a teacher</span>
                     @enderror
                 </div>
             </div>

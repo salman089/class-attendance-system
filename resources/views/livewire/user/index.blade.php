@@ -64,7 +64,7 @@
                                     <td class="px-6 py-4">{{ $user->email }}</td>
                                     <td class="px-6 py-4">{{ $user->phone }}</td>
                                     @forelse ($user->roles as $role)
-                                        <td class="px-6 py-4 hover:bg-[#444242]">{{ $role->name }}</td>
+                                        <td class="px-6 py-4">{{ $role->name }}</td>
                                     @empty
                                         <td class="px-6 py-4">No roles assigned</td>
                                     @endforelse
@@ -97,7 +97,6 @@
                                                 </button>
                                             @endif
                                         @endcan
-
                                     </td>
                                 </tr>
                             @empty

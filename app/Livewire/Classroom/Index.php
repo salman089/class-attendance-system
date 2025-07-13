@@ -26,6 +26,7 @@ class Index extends Component
             'ID',
             'Class Name',
             'Section',
+            'Head of Department',
             'Actions',
         ];
     }

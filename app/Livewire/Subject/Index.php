@@ -4,9 +4,11 @@ namespace App\Livewire\Subject;
 
 use App\Models\Subject;
 use Livewire\Component;
+use App\Models\Classroom;
 use App\Livewire\Traits\Search;
 use Livewire\Attributes\Locked;
 use App\Livewire\Traits\Pagination;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
@@ -39,19 +41,39 @@ class Index extends Component
 
     public function render()
     {
+        $user = Auth::user();
+
+        $query = Subject::with('classroom', 'teacher');
+
+        if ($user->is_superuser) {
+
+        }
+
+        elseif ($user->hasAccess('view_classrooms_as_hod'))
+        {
+            $classroomIds = Classroom::where('head_of_department_id', $user->id)->pluck('id');
+            $query->whereIn('classroom_id', $classroomIds);
+        }
+
+        else {
+            $query->where('teacher_id', $user->id);
+        }
+
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('name', 'like', '%' . $this->search . '%')
+                    ->orWhereHas('classroom', function ($q) {
+                        $q->where('name', 'like', '%' . $this->search . '%')
+                            ->orWhere('section', 'like', '%' . $this->search . '%');
+                    })
+                    ->orWhereHas('teacher', function ($q) {
+                        $q->where('name', 'like', '%' . $this->search . '%');
+                    });
+            });
+        }
+
         return view('livewire.subject.index', [
-            'subjects' => Subject::with('classroom', 'teacher')
-                ->where(function ($query) {
-                    $query->where('name', 'like', '%' . $this->search . '%')
-                        ->orWhereHas('classroom', function ($q) {
-                            $q->where('name', 'like', '%' . $this->search . '%')
-                                ->orWhere('section', 'like', '%' . $this->search . '%');
-                        })
-                        ->orWhereHas('teacher', function ($q) {
-                            $q->where('name', 'like', '%' . $this->search . '%');
-                        });
-                })
-                ->paginate($this->perPage),
+            'subjects' => $query->paginate($this->perPage),
         ]);
     }
 }

@@ -38,14 +38,6 @@ return new class extends Migration
                 'updated_at' => now(),
             ],
             [
-                'name' => 'delete_attendance',
-                'title' => 'Delete',
-                'description' => 'Can delete a attendance record',
-                'category_id' => $attendanceCategoryID,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'name' => 'view_attendance',
                 'title' => 'View',
                 'description' => 'Can view details of a attendance record',
