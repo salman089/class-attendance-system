@@ -7,15 +7,29 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ClassroomController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AttendanceController;
+use App\Livewire\Dashboard\Admin as AdminDashboard;
+use App\Livewire\Dashboard\Teacher as TeacherDashboard;
+use App\Livewire\Dashboard\Hod as HodDashboard;
+use App\Livewire\Dashboard\Student as StudentDashboard;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admin/dashboard', AdminDashboard::class)->name('admin.dashboard')->middleware('can:admin_dashboard');
+    Route::get('/hod/dashboard', HodDashboard::class)->name('hod.dashboard')->middleware('can:hod_dashboard');
+    Route::get('/teacher/dashboard', TeacherDashboard::class)->name('teacher.dashboard')->middleware('can:teacher_dashboard');
+    Route::get('/student/dashboard', StudentDashboard::class)->name('student.dashboard')->middleware('can:student_dashboard');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -40,9 +54,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::prefix('/attendances')->group(function () {
-        Route::get('/', [AttendanceController::class, 'index'])->name('attendance.index');
-        Route::get('/mark/{subjectId}/{date}', [AttendanceController::class, 'mark'])->name('attendance.mark');
-        Route::get('/attendances/show/{subjectId}/{date}', [AttendanceController::class, 'show'])->name('attendance.show');
+        Route::get('/', [AttendanceController::class, 'index'])->name('attendance.index')->middleware('can:list_attendance');
+        Route::get('/mark/{subjectId}/{date}', [AttendanceController::class, 'mark'])->name('attendance.mark')->middleware('can:mark_attendance');
+        Route::get('/attendances/show/{subjectId}/{date}', [AttendanceController::class, 'show'])->name('attendance.show')->middleware('can:view_attendance');
+        Route::get('/reports', [AttendanceController::class, 'report'])->name('attendance.report')->middleware('can:view_reports');
     });
 
     // Users

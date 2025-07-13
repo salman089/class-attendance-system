@@ -10,9 +10,29 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden text-white sm:flex sm:space-x-6 ms-10">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        <i class="mr-1 fas fa-tachometer-alt"></i> {{ __('Dashboard') }}
-                    </x-nav-link>
+                    @can('admin_dashboard')
+                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
+                            <i class="mr-1 fas fa-tachometer-alt"></i> {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('teacher_dashboard')
+                        <x-nav-link :href="route('teacher.dashboard')" :active="request()->routeIs('teacher.dashboard')">
+                            <i class="mr-1 fas fa-tachometer-alt"></i> {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('hod_dashboard')
+                        <x-nav-link :href="route('hod.dashboard')" :active="request()->routeIs('hod.dashboard')">
+                            <i class="mr-1 fas fa-tachometer-alt"></i> {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endcan
+
+                    @can('student_dashboard')
+                        <x-nav-link :href="route('student.dashboard')" :active="request()->routeIs('student.dashboard')">
+                            <i class="mr-1 fas fa-tachometer-alt"></i> {{ __('Dashboard') }}
+                        </x-nav-link>
+                    @endcan
 
                     @can('list_users')
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.*')">
@@ -32,9 +52,11 @@
                         </x-nav-link>
                     @endcan
 
-                    <x-nav-link :href="route('attendance.index')" :active="request()->routeIs('attendance.*')">
-                        <i class="mr-1 fas fa-calendar-check"></i> {{ __('Attendances') }}
-                    </x-nav-link>
+                    @can('list_attendance')
+                        <x-nav-link :href="route('attendance.index')" :active="request()->routeIs('attendance.*')">
+                            <i class="mr-1 fas fa-calendar-check"></i> {{ __('Attendances') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
 
             </div>

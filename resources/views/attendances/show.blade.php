@@ -6,7 +6,7 @@
 
                     <div class="flex flex-col gap-4 mb-4 sm:flex-row sm:items-center sm:justify-between">
                         <h3 class="text-lg font-semibold text-white">
-                            Attendance Details: {{ $subject->name }} ({{ $date }})
+                            Attendance Details: {{ $subject->name }} ({{ $formattedDate }})
                         </h3>
                     </div>
 

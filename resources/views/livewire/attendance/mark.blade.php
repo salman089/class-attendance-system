@@ -2,7 +2,7 @@
     <!-- Header -->
     <div class="flex flex-col gap-4 mb-4 sm:flex-row sm:items-center sm:justify-between">
         <h3 class="text-lg font-semibold text-white">
-            Mark Attendance: {{ $subject->name ?? 'N/A' }} ({{ $date }})
+            Mark Attendance: {{ $subject->name ?? 'N/A' }} ({{ $this->formattedDate }})
         </h3>
     </div>
 

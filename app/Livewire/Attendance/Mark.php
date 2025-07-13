@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Attendance;
 
-use Livewire\Component;
+use Carbon\Carbon;
 use App\Models\Subject;
+use Livewire\Component;
 use App\Models\Attendance;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,11 @@ class Mark extends Component
         $this->students = $this->subject->classroom?->students ?? [];
 
         $this->loadAttendanceStatuses();
+    }
+
+    public function getFormattedDateProperty()
+    {
+        return Carbon::parse($this->date)->format('M d, Y');
     }
 
     protected function loadAttendanceStatuses()

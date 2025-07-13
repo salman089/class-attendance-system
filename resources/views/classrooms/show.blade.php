@@ -55,7 +55,8 @@
                                     </th>
                                     <td class="px-6 py-4 hover:bg-[#444242] text-gray-400">
                                         @if ($hod)
-                                            {{ $hod->name }}
+                                            <div class="font-semibold text-white">{{ $hod->name }}</div>
+                                            <div class="text-sm text-gray-400">{{ $hod->email }}</div>
                                         @else
                                             <span class="text-gray-400">No HOD assigned</span>
                                         @endif

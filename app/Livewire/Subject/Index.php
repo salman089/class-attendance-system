@@ -45,7 +45,7 @@ class Index extends Component
 
         $query = Subject::with('classroom', 'teacher');
 
-        if ($user->is_superuser) {
+        if ($user->hasAccess('admin_dashboard')) {
 
         }
 

@@ -13,11 +13,11 @@
         @foreach ($attendances as $att)
             <tr>
                 <td>{{ $att->student->roll_no ?? '-' }}</td>
-                <td>{{ $att->student->name ?? '-' }}</td> {{-- student --}}
+                <td>{{ $att->student->name ?? '-' }}</td>
                 <td>{{ $att->subject->name ?? '-' }}</td>
                 <td>{{ $att->date }}</td>
                 <td>{{ ucfirst($att->status) }}</td>
-                <td>{{ $att->marker->name ?? '-' }}</td> {{-- marked_by --}}
+                <td>{{ $att->marker->name ?? '-' }}</td>
             </tr>
         @endforeach
     </tbody>

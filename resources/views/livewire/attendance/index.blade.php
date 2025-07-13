@@ -2,7 +2,7 @@
     <div class="flex flex-col gap-4 mt-2 mb-2 sm:flex-row sm:items-center sm:justify-between">
         {{-- Title --}}
         <div class="flex items-center space-x-2">
-            <h3 class="text-lg font-semibold text-white">Manage Attendance</h3>
+            <h3 class="text-lg font-semibold text-white">Manage Attendance: {{ $this->formattedDate }}</h3>
         </div>
 
         {{-- Actions --}}
@@ -15,13 +15,15 @@
             @include('partials.pagination')
 
             {{-- Create Button --}}
-            <a href="{{ route('attendance.index') }}"
-                class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-blue-600 rounded-md hover:bg-blue-500 focus:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-clipboard"></i>
-                    <span>Report</span>
-                </div>
-            </a>
+            @can('view_reports')
+                <a href="{{ route('attendance.report') }}"
+                    class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-blue-600 rounded-md hover:bg-blue-500 focus:bg-blue-700 active:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa-solid fa-clipboard"></i>
+                        <span>Reports</span>
+                    </div>
+                </a>
+            @endcan
         </div>
     </div>
 
@@ -82,28 +84,35 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 space-x-2 whitespace-nowrap">
-                                        <a href="{{ route('attendance.mark', [$subject->id, $date]) }}"
-                                            class="font-medium {{ $isMarked ? 'text-green-400' : 'text-violet-400' }} hover:underline">
-                                            {{ $isMarked ? 'Edit' : 'Mark' }}
-                                        </a>
+                                        @can('mark_attendance')
+                                            <a href="{{ route('attendance.mark', [$subject->id, $date]) }}"
+                                                class="font-medium {{ $isMarked ? 'text-green-400' : 'text-violet-400' }} hover:underline">
+                                                {{ $isMarked ? 'Edit' : 'Mark' }}
+                                            </a>
+                                        @endcan
 
-                                        <a href="{{ route('attendance.show', [$subject->id, $date]) }}"
-                                            class="font-medium text-blue-400 hover:underline">
-                                            View
-                                        </a>
+                                        @can('view_attendance')
+                                            <a href="{{ route('attendance.show', [$subject->id, $date]) }}"
+                                                class="font-medium text-blue-400 hover:underline">
+                                                View
+                                            </a>
+                                        @endcan
 
-                                        <!-- Excel Export (Controller Route) -->
-                                        <button type="button" wire:click="exportExcel({{ $subject->id }}, '{{ $date }}')"
-                                            class="font-medium text-green-300 hover:underline">
-                                            Export Excel
-                                        </button>
+                                        @can('export_attendance')
+                                            @if ($isMarked == true)
+                                                <button type="button"
+                                                    wire:click="exportExcel({{ $subject->id }}, '{{ $date }}')"
+                                                    class="font-medium text-green-300 hover:underline">
+                                                    Export Excel
+                                                </button>
 
-                                        <!-- PDF Export (Controller Route) -->
-                                        <button type="button" wire:click="exportPDF({{ $subject->id }}, '{{ $date }}')"
-                                            class="font-medium text-red-600 hover:underline">
-                                            Export PDF
-                                        </button>
-
+                                                <button type="button"
+                                                    wire:click="exportPDF({{ $subject->id }}, '{{ $date }}')"
+                                                    class="font-medium text-red-600 hover:underline">
+                                                    Export PDF
+                                                </button>
+                                            @endif
+                                        @endcan
                                     </td>
                                 </tr>
                             @empty
