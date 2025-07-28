@@ -43,12 +43,43 @@
                      @if (Route::has('login'))
                         <nav class="flex gap-2 mt-8">
                             @auth
+                                @can('admin_dashboard')
                                 <a
-                                    href="{{ url('/dashboard') }}"
+                                    href="{{ url('/admin/dashboard') }}"
                                     class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
                                 >
                                     Dashboard
                                 </a>
+                                @endcan
+
+                                @can('hod_dashboard')
+                                <a
+                                    href="{{ url('/hod/dashboard') }}"
+                                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                                >
+                                    Dashboard
+                                </a>
+                                @endcan
+
+                                @can('teacher_dashboard')
+                                    <a
+                                    href="{{ url('/teacher/dashboard') }}"
+                                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                                >
+                                    Dashboard
+                                </a>
+                                @endcan
+
+
+                                @can('student_dashboard')
+                                <a
+                                    href="{{ url('/student/dashboard') }}"
+                                    class="inline-block px-5 py-1.5 dark:text-[#EDEDEC] border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] dark:border-[#3E3E3A] dark:hover:border-[#62605b] rounded-sm text-sm leading-normal"
+                                >
+                                    Dashboard
+                                </a>
+                                @endcan
+
                             @else
                                 <a
                                     href="{{ route('login') }}"
