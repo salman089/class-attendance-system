@@ -19,5 +19,7 @@ class AttendanceExport implements FromView
         return view('exports.attendance_excel', [
             'attendances' => $this->attendances,
         ]);
+
+
     }
 }
